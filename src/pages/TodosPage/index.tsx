@@ -3,6 +3,7 @@ import Select from 'react-dropdown-select';
 import styled from "styled-components";
 import TodoList from "../../components/TodoList";
 import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../../store/hooks/redux";
 
 const TodosWrapper = styled.div`
   width: 100%;
@@ -13,6 +14,8 @@ const TodosWrapper = styled.div`
 
 const TodosPage = () => {
   const navigate = useNavigate()
+  const todos = useAppSelector((state) => state.TodosReducer.Todos)
+
   return (
     <div >
       <div style={{display:"flex", justifyContent: "space-between", marginBottom: "20px"}}>
@@ -28,7 +31,7 @@ const TodosPage = () => {
         placeholder={"Filtered by..."}
       />
       <TodosWrapper>
-        <TodoList />
+        <TodoList todos={todos} />
       </TodosWrapper>
       </div>
   );

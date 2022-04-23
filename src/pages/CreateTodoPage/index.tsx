@@ -1,24 +1,48 @@
-import React, {useId} from 'react';
+import React, {useEffect, useId, useState} from 'react';
 import UseInput from "../../store/hooks/UseInput";
 import {useNavigate} from "react-router-dom";
 import {ButtonBackWrapper, CreateTodoWrapper, InputDescription, InputTitle, Label} from "./styled";
+import {ITodoItem} from "../../store/reducers/TodosReducer";
+import {TodosSlice} from "../../store/reducers/TodosReducer";
+import {useAppDispatch} from "../../store/hooks/redux";
 
 
+
+interface ICreateTodo {
+  (todo: ITodoItem): void
+}
 
 const CreateTodoPage = () => {
   const navigate = useNavigate()
   const title = UseInput("")
   const description = UseInput("")
   const expDate = UseInput("")
-  const id = useId()
+  const [id, setId] = useState("")
+  const dispatch = useAppDispatch()
+  const {addTodo} = TodosSlice.actions
 
-  const todo = {
+  const todo: ITodoItem = {
     id,
     title: title.value,
     description: description.value,
     expDate: expDate.value,
-    createDate: Date.now()
+    createDate: Date.now().toString()
   }
+
+  const resetFields = () => {
+    title.resetField()
+    description.resetField()
+    expDate.resetField()
+  }
+
+  const createTodo: ICreateTodo = (todo) => {
+      dispatch(addTodo(todo))
+      resetFields()
+  }
+
+  useEffect(() => {
+    setId(Math.random().toString())
+  })
 
   return (
     <CreateTodoWrapper>
@@ -31,7 +55,7 @@ const CreateTodoPage = () => {
       <InputDescription  placeholder={"Введите описание задачи"} value={description.value} onChange={(e) => description.onChange(e)}/>
       <Label>Дата окончания задачи</Label>
       <InputTitle type={"date"} value={expDate.value} onChange={(e) => expDate.onChange(e)}/>
-      <button>Добавить задачу</button>
+      <button onClick={() => createTodo(todo)}>Добавить задачу</button>
     </CreateTodoWrapper>
   );
 };

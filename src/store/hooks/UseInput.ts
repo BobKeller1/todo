@@ -7,7 +7,11 @@ function UseInput(initialValue: any) {
     setValue(event.target.value);
   };
 
-  return { value, onChange };
+  const resetField  = () => {
+    setValue('')
+  }
+
+  return { value, onChange, resetField };
 }
 
 export default UseInput;
