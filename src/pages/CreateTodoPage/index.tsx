@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useId} from 'react';
 import UseInput from "../../store/hooks/UseInput";
 import {useNavigate} from "react-router-dom";
 import {ButtonBackWrapper, CreateTodoWrapper, InputDescription, InputTitle, Label} from "./styled";
@@ -10,8 +10,10 @@ const CreateTodoPage = () => {
   const title = UseInput("")
   const description = UseInput("")
   const expDate = UseInput("")
+  const id = useId()
 
   const todo = {
+    id,
     title: title.value,
     description: description.value,
     expDate: expDate.value,
