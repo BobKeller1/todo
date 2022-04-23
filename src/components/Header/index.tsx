@@ -1,17 +1,20 @@
 import React from "react";
-import styled from "styled-components";
+import {SvgIcon} from "../Icons";
+import {InputSearch, InputSearchWrapper, LogoTitle, Wrapper} from "./styled";
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 50px;
-  background-color: #1b4572;
-`;
 
 const Header = () => {
   return (
     <div>
       <Wrapper>
-        <p>Крутое название</p>
+        <LogoTitle>
+          <SvgIcon id={"watch"} />
+          <span style={{color: "white"}}>TODO IT</span>
+        </LogoTitle>
+        <InputSearchWrapper>
+          <InputSearch placeholder={"Введите название"}/>
+          <SvgIcon id={"icons-search"} style={{position: "absolute"}}/>
+        </InputSearchWrapper>
       </Wrapper>
     </div>
   );
