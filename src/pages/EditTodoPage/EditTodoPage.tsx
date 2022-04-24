@@ -22,13 +22,15 @@ const EditTodoPage = () => {
   const expDate = UseInput(todo.expDate)
   const id = todo.id
   const createDate = todo.createDate
+  const isCompleted = todo.isCompleted
 
   const editedTodo: ITodoItem = {
     id,
     title: title.value,
     description: description.value,
     expDate: expDate.value,
-    createDate
+    createDate,
+    isCompleted
   }
 
   const update = (updatedTodo: ITodoItem) => {

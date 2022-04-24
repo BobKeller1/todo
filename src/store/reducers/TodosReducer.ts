@@ -6,6 +6,7 @@ export interface ITodoItem {
   description: string
   expDate: string
   createDate: string
+  isCompleted: boolean
 }
 
 interface ITodoState {
@@ -20,7 +21,8 @@ const initialState: ITodoState = {
     description: '',
     expDate: '',
     createDate: '',
-    id: ''
+    id: '',
+    isCompleted: false
   }
 };
 
@@ -42,6 +44,10 @@ export const TodosSlice = createSlice({
     },
     updateTodo(state, action){
       state.Todos[action.payload.index] = action.payload.updatedTodo
+    },
+    setTodoCompleted(state, action){
+      state.Todos[action.payload].isCompleted = !state.Todos[action.payload].isCompleted
+
     }
 
 

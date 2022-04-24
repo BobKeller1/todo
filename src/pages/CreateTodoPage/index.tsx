@@ -26,7 +26,8 @@ const CreateTodoPage = () => {
     title: title.value,
     description: description.value,
     expDate: expDate.value,
-    createDate: Date.now().toString()
+    createDate: Date.now().toString(),
+    isCompleted: false
   }
 
   const resetFields = () => {
