@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
 import {ITodoItem, TodosSlice} from "../../store/reducers/TodosReducer";
 import {batch} from "react-redux";
+import usePagination from "../../store/hooks/UsePagination";
 
 
 const TodosWrapper = styled.div`
@@ -16,6 +17,7 @@ const TodosWrapper = styled.div`
 `
 
 const TodosPage = () => {
+
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const {setModalOpen, setDeletingTodoId, setActiveFilter} = TodosSlice.actions
@@ -29,6 +31,18 @@ const TodosPage = () => {
     })
 
   }
+  const {
+    firstContentIndex,
+    lastContentIndex,
+    nextPage,
+    prevPage,
+    page,
+    setPage,
+    totalPages,
+  } = usePagination({
+    contentPerPage: 15,
+    count: todos.length,
+  });
 
 
   const filters = [
@@ -39,8 +53,6 @@ const TodosPage = () => {
     { value: 'Without', label: 'Без фильтра' }
   ]
 
-console.log(todos, filtredTodos)
-  console.log(activeFilter)
 
   function SortArray(prevTodo:ITodoItem, nexTodo:ITodoItem){
     return prevTodo?.title.localeCompare(nexTodo?.title)
@@ -96,7 +108,27 @@ console.log(todos, filtredTodos)
       />
       <h1>Список задач:</h1>
       <TodosWrapper>
-        <TodoList todos={filtredTodos} openModalToDelete={openModalToDelete}/>
+        <TodoList todos={filtredTodos} openModalToDelete={openModalToDelete} firstContentIndex={firstContentIndex} lastContentIndex={lastContentIndex}/>
+        <div className="pagination">
+          <p className="text">
+            {page}/{totalPages}
+          </p>
+          <button onClick={prevPage} className="page">
+            &larr;
+          </button>
+          {[...Array(totalPages).keys()].map((el) => (
+            <button
+              onClick={() => setPage(el + 1)}
+              key={el}
+              className={`page ${page === el + 1 ? "active" : ""}`}
+            >
+              {el + 1}
+            </button>
+          ))}
+          <button onClick={nextPage} className="page">
+            &rarr;
+          </button>
+        </div>
       </TodosWrapper>
       </div>
   );
