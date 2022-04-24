@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {ButtonBackWrapper, CreateTodoWrapper, InputDescription, InputTitle, Label} from "./styled";
 import {ITodoItem} from "../../store/reducers/TodosReducer";
 import {TodosSlice} from "../../store/reducers/TodosReducer";
-import {useAppDispatch} from "../../store/hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
 
 
 
@@ -14,6 +14,7 @@ interface ICreateTodo {
 
 const CreateTodoPage = () => {
   const navigate = useNavigate()
+  const todos = useAppSelector((state) => state.TodosReducer.Todos)
   const title = UseInput("")
   const description = UseInput("")
   const expDate = UseInput("")
@@ -25,8 +26,8 @@ const CreateTodoPage = () => {
     id,
     title: title.value,
     description: description.value,
-    expDate: expDate.value,
-    createDate: Date.now().toString(),
+    expDate: new Date(expDate.value).toLocaleString().split(',')[0],
+    createDate:new Date(Date.now()).toLocaleString().split(',')[0],
     isCompleted: false
   }
 
@@ -43,7 +44,7 @@ const CreateTodoPage = () => {
 
   useEffect(() => {
     setId(Math.random().toString())
-  })
+  }, [todos])
 
   return (
     <CreateTodoWrapper>
