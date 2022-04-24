@@ -8,19 +8,23 @@ import "./style.css";
 
 interface ITodoItemElement {
   todo: ITodoItem
+  openModalToDelete: (id: string)=> void
+
 }
 
-const TodoItem: FC<ITodoItemElement> = ({todo}) => {
+const TodoItem: FC<ITodoItemElement> = ({todo, openModalToDelete}) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const todos = useAppSelector((state) => state.TodosReducer.Todos)
-  const {removeTodo, setEditingTodo, setTodoCompleted} = TodosSlice.actions
+  const {setEditingTodo, setTodoCompleted} = TodosSlice.actions
   const {title, description, expDate, createDate, id, isCompleted} = todo
 
   const setCompleted = (currentTodo: ITodoItem) => {
     const index = todos.findIndex((todo) => todo.id === currentTodo.id)
     dispatch(setTodoCompleted(index))
   }
+
+
 
   return (
     <div style={{width: "100%", maxWidth:" 560px", display: "flex", alignItems: "center"}}>
@@ -34,7 +38,7 @@ const TodoItem: FC<ITodoItemElement> = ({todo}) => {
                 dispatch(setEditingTodo(todo))
                 navigate(`/${id}/edit`)
               }}><SvgIcon id={"icons-edit"}  /></button>
-              <button style={{border: 0, backgroundColor: "white"}} onClick={() => dispatch(removeTodo(id))}><SvgIcon id={"icons-trash"} /></button>
+              <button style={{border: 0, backgroundColor: "white"}} onClick={() => openModalToDelete(id)}><SvgIcon id={"icons-trash"} /></button>
             </div> }
           </div>
           <TodoDescription>{description}</TodoDescription>

@@ -7,10 +7,12 @@ import Main from "./pages/Main";
 import {BrowserRouter} from "react-router-dom";
 import {ITodoItem, TodosSlice} from "./store/reducers/TodosReducer";
 import {useAppDispatch, useAppSelector} from "./store/hooks/redux";
+import DeleteTodoModal from "./components/modals/DeleteTodoModal";
 
 
 function App() {
   const todos = useAppSelector((state) => state.TodosReducer.Todos)
+  const isModalOpen = useAppSelector((state) => state.TodosReducer.isModalOpen)
   const {setTodos} = TodosSlice.actions
   const dispatch = useAppDispatch();
 
@@ -35,6 +37,7 @@ function App() {
 
   return (
     <div className="App">
+      <DeleteTodoModal isModalOpen={isModalOpen}/>
       <SVGSource/>
       <Header />
       <BrowserRouter>

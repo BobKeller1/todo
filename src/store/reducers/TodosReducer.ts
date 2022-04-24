@@ -12,6 +12,8 @@ export interface ITodoItem {
 interface ITodoState {
   Todos: ITodoItem[]
   editingTodo: ITodoItem
+  deletingTodoId: string
+  isModalOpen: boolean
 }
 
 const initialState: ITodoState = {
@@ -23,7 +25,9 @@ const initialState: ITodoState = {
     createDate: '',
     id: '',
     isCompleted: false
-  }
+  },
+  deletingTodoId: "",
+  isModalOpen: false
 };
 
 export const TodosSlice = createSlice({
@@ -47,10 +51,16 @@ export const TodosSlice = createSlice({
     },
     setTodoCompleted(state, action){
       state.Todos[action.payload].isCompleted = !state.Todos[action.payload].isCompleted
-
+    },
+    setDeletingTodoId(state, action){
+      state.deletingTodoId = action.payload
+    },
+    setModalOpen(state){
+      state.isModalOpen = true
+    },
+    setModalClose(state){
+      state.isModalOpen = false
     }
-
-
   },
 });
 

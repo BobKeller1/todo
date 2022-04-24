@@ -3,7 +3,9 @@ import Select from 'react-dropdown-select';
 import styled from "styled-components";
 import TodoList from "../../components/TodoList";
 import {useNavigate} from "react-router-dom";
-import {useAppSelector} from "../../store/hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
+import {TodosSlice} from "../../store/reducers/TodosReducer";
+import {batch} from "react-redux";
 
 const TodosWrapper = styled.div`
   width: 100%;
@@ -14,7 +16,17 @@ const TodosWrapper = styled.div`
 
 const TodosPage = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const {setModalOpen, setDeletingTodoId} = TodosSlice.actions
   const todos = useAppSelector((state) => state.TodosReducer.Todos)
+
+  const openModalToDelete = (id: string) => {
+    batch(() =>{
+      dispatch(setModalOpen())
+      dispatch((setDeletingTodoId(id)))
+    })
+
+  }
 
   return (
     <div >
@@ -31,7 +43,7 @@ const TodosPage = () => {
         placeholder={"Filtered by..."}
       />
       <TodosWrapper>
-        <TodoList todos={todos} />
+        <TodoList todos={todos} openModalToDelete={openModalToDelete}/>
       </TodosWrapper>
       </div>
   );

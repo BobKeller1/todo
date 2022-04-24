@@ -26,11 +26,12 @@ const CreateTodoPage = () => {
     id,
     title: title.value,
     description: description.value,
-    expDate: new Date(expDate.value).toLocaleString().split(',')[0],
+    expDate: new Date(expDate.value || Date.now()).toLocaleString().split(',')[0],
     createDate:new Date(Date.now()).toLocaleString().split(',')[0],
     isCompleted: false
   }
 
+  console.log(todo)
   const resetFields = () => {
     title.resetField()
     description.resetField()
