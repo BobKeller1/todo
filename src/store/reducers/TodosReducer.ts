@@ -14,6 +14,7 @@ interface ITodoState {
   editingTodo: ITodoItem
   deletingTodoId: string
   isModalOpen: boolean
+  activeFilter: string
 }
 
 const initialState: ITodoState = {
@@ -27,7 +28,8 @@ const initialState: ITodoState = {
     isCompleted: false
   },
   deletingTodoId: "",
-  isModalOpen: false
+  isModalOpen: false,
+  activeFilter: ""
 };
 
 export const TodosSlice = createSlice({
@@ -60,6 +62,9 @@ export const TodosSlice = createSlice({
     },
     setModalClose(state){
       state.isModalOpen = false
+    },
+    setActiveFilter(state, action){
+      state.activeFilter = action.payload
     }
   },
 });

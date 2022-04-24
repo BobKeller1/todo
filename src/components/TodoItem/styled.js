@@ -33,11 +33,14 @@ export const TodoDescription = styled(TodoText)`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;`
 
 export const TodoDate = styled(TodoText)`
+  width: 90%;
   position: absolute;
   bottom: 2px;
   left: 8px;
+  display: flex;
+  justify-content: space-between;
 `

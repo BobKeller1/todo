@@ -43,7 +43,9 @@ const TodoItem: FC<ITodoItemElement> = ({todo, openModalToDelete}) => {
           </div>
           <TodoDescription>{description}</TodoDescription>
           <div>
-            <TodoDate>{createDate} \ {expDate} </TodoDate>
+            <TodoDate>
+              <span> Дата создания: {createDate}</span>
+              <span> Дата окончания: {expDate}</span> </TodoDate>
           </div>
         </div>
       </TodoItemWrapper>
