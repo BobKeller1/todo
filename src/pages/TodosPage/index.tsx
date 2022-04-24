@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
 import {TodosSlice} from "../../store/reducers/TodosReducer";
 import {batch} from "react-redux";
 
+
 const TodosWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -28,20 +29,26 @@ const TodosPage = () => {
 
   }
 
+  const options = [
+    { value: 'Date', label: 'По дате' },
+    { value: 'Title', label: 'По заголовку' },
+    { value: 'Completed', label: 'По выполненным' },
+    { value: 'NotCompleted', label: 'По не выполненным' }
+  ]
+
   return (
-    <div >
+    <div>
       <div style={{display:"flex", justifyContent: "space-between", marginBottom: "20px"}}>
         <button onClick={() => navigate("/create")}>ADD TODO</button>
         <button onClick={() => navigate("/trashBasket")}>Trash</button>
       </div>
       <Select
-        multi
         onChange={() => console.log('click')}
         values={[]}
-        options={[]}
-        style={{padding: "0 16px 0 16px"}}
-        placeholder={"Filtered by..."}
+        options={options}
+        placeholder={"Сортировать по..."}
       />
+      <h1>Список задач:</h1>
       <TodosWrapper>
         <TodoList todos={todos} openModalToDelete={openModalToDelete}/>
       </TodosWrapper>
