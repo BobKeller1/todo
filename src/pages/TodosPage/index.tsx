@@ -41,7 +41,7 @@ const TodosPage = () => {
     totalPages,
   } = usePagination({
     contentPerPage: 15,
-    count: todos.length,
+    count: filtredTodos.length,
   });
 
 
