@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import TodoItem from "../TodoItem";
 import {ITodoItem} from "../../store/reducers/TodosReducer";
+import styled from "styled-components";
 
 interface ITodosList {
   todos: ITodoItem[]
@@ -9,6 +10,14 @@ interface ITodosList {
   lastContentIndex: number
 }
 
+const TodosWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+`
+
 const TodoList: FC<ITodosList> = ({todos, openModalToDelete, firstContentIndex, lastContentIndex}) => {
   const todosElements = todos.slice(firstContentIndex, lastContentIndex).map((todo) => {
     return <TodoItem key={todo.id} todo={todo} openModalToDelete={openModalToDelete}/>
@@ -16,8 +25,10 @@ const TodoList: FC<ITodosList> = ({todos, openModalToDelete, firstContentIndex, 
 
   return (
     <>
+      <TodosWrapper>
       {todosElements}
-      {todosElements.length < 15 && <p>Здесь заканчиваются задачи!</p>}
+      </TodosWrapper>
+      { todos.length > 15 && todosElements.length < 15 && <h3 style={{paddingLeft: "25px", marginTop: "10px"}}>Здесь заканчиваются Ваши задачи!</h3>}
     </>
   );
 };

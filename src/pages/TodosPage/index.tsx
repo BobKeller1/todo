@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Select from 'react-dropdown-select';
-import styled from "styled-components";
 import TodoList from "../../components/TodoList";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
@@ -11,12 +10,7 @@ import Button from 'react-bootstrap/Button';
 import "./style.css"
 
 
-const TodosWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-`
+
 
 const TodosPage = () => {
   const navigate = useNavigate()
@@ -50,7 +44,7 @@ const TodosPage = () => {
     { value: 'Date', label: 'По дате' },
     { value: 'Title', label: 'По заголовку' },
     { value: 'Completed', label: 'По выполненным' },
-    { value: 'NotCompleted', label: 'По не выполненным' },
+    { value: 'NotCompleted', label: 'По невыполненным' },
     { value: 'Without', label: 'Без фильтра' }
   ]
 
@@ -108,10 +102,11 @@ const TodosPage = () => {
         placeholder={"Сортировать по..."}
         style={{maxWidth:"360px", marginBottom: "15px"}}
       />
-      <h1>Список задач:</h1>
-      <TodosWrapper>
+      {todos.length != 0 && <h1>Список задач:</h1>}
+
         <TodoList todos={filtredTodos} openModalToDelete={openModalToDelete} firstContentIndex={firstContentIndex} lastContentIndex={lastContentIndex}/>
-      </TodosWrapper>
+
+      {todos.length === 0 && <h2 style={{maxWidth:"600px", margin: "0 auto"}}>Вы не создали еще ни одной задачи, скорее начните!</h2>}
 
       { filtredTodos.length >= 1 &&
         <div className="pagination">
