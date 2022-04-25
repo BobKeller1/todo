@@ -7,14 +7,16 @@ export interface ITodoItem {
   expDate: string
   createDate: string
   isCompleted: boolean
+  isInBasket: boolean
 }
 
 interface ITodoState {
   Todos: ITodoItem[]
   editingTodo: ITodoItem
-  deletingTodoId: string
+  deletingTodo: ITodoItem
   isModalOpen: boolean
   activeFilter: string
+  trashBasket: ITodoItem[]
 }
 
 const initialState: ITodoState = {
@@ -25,11 +27,21 @@ const initialState: ITodoState = {
     expDate: '',
     createDate: '',
     id: '',
-    isCompleted: false
+    isCompleted: false,
+    isInBasket: false
   },
-  deletingTodoId: "",
+  deletingTodo: {
+    title: '',
+    description: '',
+    expDate: '',
+    createDate: '',
+    id: '',
+    isCompleted: false,
+    isInBasket: false
+  },
   isModalOpen: false,
-  activeFilter: ""
+  activeFilter: "",
+  trashBasket: []
 };
 
 export const TodosSlice = createSlice({
@@ -43,7 +55,7 @@ export const TodosSlice = createSlice({
       state.Todos.push(action.payload)
     },
     removeTodo(state, action){
-      state.Todos = state.Todos.filter((todo) => todo.id !== action.payload)
+      state.Todos = state.Todos.filter((todo) => todo.id !== action.payload.id)
     },
     setEditingTodo(state, action){
       state.editingTodo = action.payload
@@ -54,8 +66,8 @@ export const TodosSlice = createSlice({
     setTodoCompleted(state, action){
       state.Todos[action.payload].isCompleted = !state.Todos[action.payload].isCompleted
     },
-    setDeletingTodoId(state, action){
-      state.deletingTodoId = action.payload
+    setDeletingTodo(state, action){
+      state.deletingTodo = action.payload
     },
     setModalOpen(state){
       state.isModalOpen = true
@@ -65,6 +77,21 @@ export const TodosSlice = createSlice({
     },
     setActiveFilter(state, action){
       state.activeFilter = action.payload
+    },
+    setTrashBasket(state, action){
+      state.trashBasket = action.payload
+    },
+    setIsInBasket(state) {
+      state.deletingTodo.isInBasket = !state.deletingTodo.isInBasket
+    },
+    addItemToTrashBasket(state, action){
+      state.trashBasket.push(action.payload)
+    },
+    deleteFromBasket(state, action){
+      state.trashBasket = state.trashBasket.filter((todo) => todo.id !== action.payload.id)
+    },
+    clearBasket(state){
+      state.trashBasket = []
     }
   },
 });

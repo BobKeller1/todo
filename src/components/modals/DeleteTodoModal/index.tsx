@@ -7,12 +7,19 @@ import { Modal } from 'react-bootstrap';
 
 interface IModal {
   isModalOpen: boolean
+  modalMessage: string
 }
 
-const DeleteTodoModal: FC<IModal> = ({isModalOpen}) => {
+const DeleteTodoModal: FC<IModal> = ({isModalOpen, modalMessage}) => {
   const dispatch = useAppDispatch()
-  const {removeTodo, setModalClose} = TodosSlice.actions
-  const {deletingTodoId} = useAppSelector((state) => state.TodosReducer)
+  const {removeTodo,
+    setModalClose,
+    addItemToTrashBasket,
+    deleteFromBasket,
+    setIsInBasket} = TodosSlice.actions
+  const {deletingTodo} = useAppSelector((state) => state.TodosReducer)
+  const deletingTodoCopy = {...deletingTodo, isInBasket: true}
+
   return (
     <>
       <Modal
@@ -24,7 +31,7 @@ const DeleteTodoModal: FC<IModal> = ({isModalOpen}) => {
       <Modal.Title>Подтвердите действие</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      Вы действительно хотите удалить эту задачу?
+        {modalMessage}
       </Modal.Body>
       <Modal.Footer>
       <Button variant="secondary">
@@ -32,7 +39,12 @@ const DeleteTodoModal: FC<IModal> = ({isModalOpen}) => {
       </Button>
       <Button variant="primary" onClick={() => {
         batch(() =>{
-          dispatch(removeTodo(deletingTodoId))
+          if(deletingTodo.isInBasket){
+            dispatch(deleteFromBasket(deletingTodoCopy))
+          } else {
+            dispatch(addItemToTrashBasket(deletingTodoCopy))
+            dispatch(removeTodo(deletingTodo))
+          }
           dispatch(setModalClose())
         })
       }}>Да</Button>

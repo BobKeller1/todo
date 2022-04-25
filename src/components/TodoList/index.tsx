@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 interface ITodosList {
   todos: ITodoItem[]
-  openModalToDelete: (id: string)=> void
+  openModalToDelete: (todo: ITodoItem)=> void
   firstContentIndex: number
   lastContentIndex: number
 }

@@ -13,19 +13,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const todos = useAppSelector((state) => state.TodosReducer.Todos)
-  const isModalOpen = useAppSelector((state) => state.TodosReducer.isModalOpen)
-  const {setTodos} = TodosSlice.actions
+  const trash = useAppSelector((state) => state.TodosReducer.trashBasket)
+  const {isModalOpen} = useAppSelector((state) => state.TodosReducer)
+  const {setTodos,setTrashBasket} = TodosSlice.actions
   const dispatch = useAppDispatch();
 
   const getData = () => {
     const todos: ITodoItem[] = JSON.parse(localStorage.getItem("todos") || "[]")
+    const trash: ITodoItem[] = JSON.parse(localStorage.getItem("trash") || "[]")
     if (todos){
       dispatch(setTodos(todos))
+      dispatch(setTrashBasket(trash))
     }
   }
 
+
+
   const setData = () => {
     localStorage.setItem('todos', JSON.stringify(todos))
+    localStorage.setItem('trash', JSON.stringify(trash))
   }
 
   useEffect(() => {
@@ -34,11 +40,11 @@ function App() {
 
   useEffect(() => {
     setData()
-  }, [todos])
+  }, [todos, trash])
 
   return (
     <div className="App">
-      <DeleteTodoModal isModalOpen={isModalOpen}/>
+      <DeleteTodoModal modalMessage={"Вы действительно хотите удалить эту задачу?"} isModalOpen={isModalOpen}/>
       <SVGSource/>
       <Header />
       <BrowserRouter>

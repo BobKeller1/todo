@@ -29,7 +29,8 @@ const CreateTodoPage = () => {
     description: description.value,
     expDate: expDate.value || Date.now(),
     createDate: Date.now().toString(),
-    isCompleted: false
+    isCompleted: false,
+    isInBasket: false
   }
 
   const test = new Date(expDate.value).toLocaleString('ru-RU', {  day: "numeric", month: 'short', year: "numeric" })

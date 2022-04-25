@@ -9,7 +9,7 @@ import {WrapperTodo} from "../../pages/TodosPage/styled";
 
 interface ITodoItemElement {
   todo: ITodoItem
-  openModalToDelete: (id: string)=> void
+  openModalToDelete: (todo: ITodoItem)=> void
 
 }
 
@@ -18,7 +18,7 @@ const TodoItem: FC<ITodoItemElement> = ({todo, openModalToDelete}) => {
   const dispatch = useAppDispatch()
   const todos = useAppSelector((state) => state.TodosReducer.Todos)
   const {setEditingTodo, setTodoCompleted} = TodosSlice.actions
-  const {title, description, expDate, createDate, id, isCompleted} = todo
+  const {title, id, isCompleted, isInBasket, description, expDate, createDate} = todo
 
   const setCompleted = (currentTodo: ITodoItem) => {
     const index = todos.findIndex((todo) => todo.id === currentTodo.id)
@@ -27,25 +27,27 @@ const TodoItem: FC<ITodoItemElement> = ({todo, openModalToDelete}) => {
 
   return (
     <WrapperTodo>
-      <input
+      {!isInBasket && <input
         style={{width: "30px"}}
         type={"checkbox"}
         checked={isCompleted}
-        onChange={() => setCompleted(todo)}/>
+        onChange={() => setCompleted(todo)}/>}
+
       <TodoItemWrapper className={isCompleted ?"completed": ""}>
         <div style={{width: "100%"}}>
           <div style={{display: "flex", justifyContent: "space-between", minHeight: "29px"}}>
             <TodoTitle>{title}</TodoTitle>
-            {!isCompleted &&  <div>
+              <div>
+              {!isInBasket && !isCompleted &&
               <button style={{border: 0, backgroundColor: "white"}} onClick={() => {
-                dispatch(setEditingTodo(todo))
+                  dispatch(setEditingTodo(todo))
                 navigate(`/${id}/edit`)
-              }}><SvgIcon id={"icons-edit"}  /></button>
+              }}><SvgIcon id={"icons-edit"}  /></button> }
               <button
                 style={{border: 0, backgroundColor: "white"}}
-                onClick={() => openModalToDelete(id)}><SvgIcon
+                onClick={() => openModalToDelete(todo)}><SvgIcon
                 id={"icons-trash"} /></button>
-            </div> }
+            </div>
           </div>
           <TodoDescription>{description}</TodoDescription>
           <div>

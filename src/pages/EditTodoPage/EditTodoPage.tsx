@@ -24,6 +24,7 @@ const EditTodoPage = () => {
   const id = todo.id
   const createDate = todo.createDate
   const isCompleted = todo.isCompleted
+  const isInBasket = todo.isInBasket
 
   const editedTodo: ITodoItem = {
     id,
@@ -31,7 +32,8 @@ const EditTodoPage = () => {
     description: description.value,
     expDate: expDate.value,
     createDate,
-    isCompleted
+    isCompleted,
+    isInBasket
   }
 
   const update = (updatedTodo: ITodoItem) => {

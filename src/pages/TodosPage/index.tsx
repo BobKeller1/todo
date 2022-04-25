@@ -1,31 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Select from 'react-dropdown-select';
 import TodoList from "../../components/TodoList";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
 import {ITodoItem, TodosSlice} from "../../store/reducers/TodosReducer";
-import {batch} from "react-redux";
 import usePagination from "../../store/hooks/UsePagination";
 import Button from 'react-bootstrap/Button';
 import "./style.css"
 
 
+interface ITodosPage {
+  openModalToDelete(todo:ITodoItem): void
+}
 
-
-const TodosPage = () => {
+const TodosPage: FC<ITodosPage> = ({openModalToDelete}) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const {setModalOpen, setDeletingTodoId, setActiveFilter} = TodosSlice.actions
+  const {setActiveFilter} = TodosSlice.actions
   const todos = useAppSelector((state) => state.TodosReducer.Todos)
   const {activeFilter} = useAppSelector((state) => state.TodosReducer)
   const [filtredTodos, setFiltredTodos] = useState<ITodoItem[]>([])
-  const openModalToDelete = (id: string) => {
-    batch(() =>{
-      dispatch(setModalOpen())
-      dispatch((setDeletingTodoId(id)))
-    })
 
-  }
   const {
     firstContentIndex,
     lastContentIndex,
@@ -104,9 +99,14 @@ const TodosPage = () => {
       />
       {todos.length != 0 && <h1>Список задач:</h1>}
 
-        <TodoList todos={filtredTodos} openModalToDelete={openModalToDelete} firstContentIndex={firstContentIndex} lastContentIndex={lastContentIndex}/>
+        <TodoList
+          todos={filtredTodos}
+          openModalToDelete={openModalToDelete}
+          firstContentIndex={firstContentIndex}
+          lastContentIndex={lastContentIndex}/>
 
-      {todos.length === 0 && <h2 style={{maxWidth:"600px", margin: "0 auto"}}>Вы не создали еще ни одной задачи, скорее начните!</h2>}
+      {todos.length === 0 &&
+        <h2 style={{maxWidth:"600px", margin: "0 auto"}}>Вы не создали еще ни одной задачи, скорее начните!</h2>}
 
       { filtredTodos.length >= 1 &&
         <div className="pagination">

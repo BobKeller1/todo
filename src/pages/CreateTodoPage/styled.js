@@ -35,4 +35,5 @@ export const Label = styled.label`
 export const ButtonBackWrapper = styled.div`
   width: 100%;
   display: flex;
+  justify-content: space-between;
 `
