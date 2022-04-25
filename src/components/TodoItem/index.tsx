@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {ITodoItem, TodosSlice} from "../../store/reducers/TodosReducer";
 import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
 import "./style.css";
+import {WrapperTodo} from "../../pages/TodosPage/styled";
 
 interface ITodoItemElement {
   todo: ITodoItem
@@ -26,8 +27,10 @@ const TodoItem: FC<ITodoItemElement> = ({todo, openModalToDelete}) => {
 
 
 
+
+
   return (
-    <div style={{width: "100%", maxWidth:" 560px", display: "flex", alignItems: "center"}}>
+    <WrapperTodo>
       <input style={{width: "30px"}} type={"checkbox"} checked={isCompleted} onChange={() => setCompleted(todo)}/>
       <TodoItemWrapper className={isCompleted ?"completed": ""}>
         <div style={{width: "100%"}}>
@@ -49,7 +52,7 @@ const TodoItem: FC<ITodoItemElement> = ({todo, openModalToDelete}) => {
           </div>
         </div>
       </TodoItemWrapper>
-    </div>
+    </WrapperTodo>
   );
 };
 

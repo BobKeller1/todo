@@ -7,6 +7,8 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks/redux";
 import {ITodoItem, TodosSlice} from "../../store/reducers/TodosReducer";
 import {batch} from "react-redux";
 import usePagination from "../../store/hooks/UsePagination";
+import Button from 'react-bootstrap/Button';
+import "./style.css"
 
 
 const TodosWrapper = styled.div`
@@ -17,7 +19,6 @@ const TodosWrapper = styled.div`
 `
 
 const TodosPage = () => {
-
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const {setModalOpen, setDeletingTodoId, setActiveFilter} = TodosSlice.actions
@@ -97,39 +98,41 @@ const TodosPage = () => {
   return (
     <div>
       <div style={{display:"flex", justifyContent: "space-between", marginBottom: "20px"}}>
-        <button onClick={() => navigate("/create")}>ADD TODO</button>
-        <button onClick={() => navigate("/trashBasket")}>Trash</button>
+        <Button variant="primary" onClick={() => navigate("/create")}>Add Todo</Button>
+        <Button variant="danger" onClick={() => navigate("/trashBasket")}>Trash Basket</Button>
       </div>
       <Select
         onChange={(value) => dispatch(setActiveFilter((value[0].value)))}
         values={[]}
         options={filters}
         placeholder={"Сортировать по..."}
+        style={{maxWidth:"360px", marginBottom: "15px"}}
       />
       <h1>Список задач:</h1>
       <TodosWrapper>
         <TodoList todos={filtredTodos} openModalToDelete={openModalToDelete} firstContentIndex={firstContentIndex} lastContentIndex={lastContentIndex}/>
-        <div className="pagination">
-          <p className="text">
-            {page}/{totalPages}
-          </p>
-          <button onClick={prevPage} className="page">
-            &larr;
-          </button>
-          {[...Array(totalPages).keys()].map((el) => (
-            <button
-              onClick={() => setPage(el + 1)}
-              key={el}
-              className={`page ${page === el + 1 ? "active" : ""}`}
-            >
-              {el + 1}
-            </button>
-          ))}
-          <button onClick={nextPage} className="page">
-            &rarr;
-          </button>
-        </div>
       </TodosWrapper>
+
+      { filtredTodos.length >= 1 &&
+        <div className="pagination">
+        <button onClick={prevPage} className="page">
+          &larr;
+        </button>
+        {[...Array(totalPages).keys()].map((el) => (
+          <button
+            onClick={() => setPage(el + 1)}
+            key={el}
+            className={`page ${page === el + 1 ? "active" : ""}`}
+          >
+            {el + 1}
+          </button>
+        ))}
+        <button onClick={nextPage} className="page">
+          &rarr;
+        </button>
+      </div>
+      }
+
       </div>
   );
 };

@@ -1,0 +1,32 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin: 100px 0;
+}
+
+.pagination .text {
+    opacity: 0.6;
+    font-size: 18px;
+}
+
+.page {
+    color: black;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: solid 2px black;
+    background-color: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.page.active,
+.page:hover {
+    background-color: #3287e3;
+}
+

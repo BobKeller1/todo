@@ -10,6 +10,12 @@ export const TodoItemWrapper = styled.div`
   border-radius: 8px;
   padding: 4px;
   margin-top: 15px;
+  transition: all ease-in-out 0.3s;
+
+  &:hover{
+    transform: translateY(-7px);
+    box-shadow: rgba(0, 0, 0, 0.19) 0 10px 20px, rgba(0, 0, 0, 0.23) 0 6px 6px;
+  }
 
 
   @media(max-width: 600px){

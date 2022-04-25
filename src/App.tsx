@@ -8,6 +8,7 @@ import {BrowserRouter} from "react-router-dom";
 import {ITodoItem, TodosSlice} from "./store/reducers/TodosReducer";
 import {useAppDispatch, useAppSelector} from "./store/hooks/redux";
 import DeleteTodoModal from "./components/modals/DeleteTodoModal";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
