@@ -1,4 +1,4 @@
-import React, {useEffect, useId, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import UseInput from "../../store/hooks/UseInput";
 import {useNavigate} from "react-router-dom";
 import {ButtonBackWrapper, CreateTodoWrapper, InputDescription, InputTitle, Label} from "./styled";
@@ -32,10 +32,6 @@ const CreateTodoPage = () => {
     isCompleted: false,
     isInBasket: false
   }
-
-  const test = new Date(expDate.value).toLocaleString('ru-RU', {  day: "numeric", month: 'short', year: "numeric" })
-
-  console.log(test)
 
   const resetFields = () => {
     title.resetField()

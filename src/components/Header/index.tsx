@@ -9,10 +9,10 @@ const Header = () => {
       <Wrapper>
         <LogoTitle>
           <SvgIcon id={"watch"} />
-          <span style={{color: "white"}}>TODO IT</span>
+          <span style={{color: "white"}}>JUST DO IT</span>
         </LogoTitle>
         <InputSearchWrapper>
-          <InputSearch placeholder={"Введите название"}/>
+          <InputSearch placeholder={"Введите описание"}/>
           <SvgIcon id={"icons-search"} style={{position: "absolute"}}/>
         </InputSearchWrapper>
       </Wrapper>

@@ -97,7 +97,7 @@ const TodosPage: FC<ITodosPage> = ({openModalToDelete}) => {
         placeholder={"Сортировать по..."}
         style={{maxWidth:"360px", marginBottom: "15px"}}
       />
-      {todos.length != 0 && <h1>Список задач:</h1>}
+      {todos.length !== 0 && <h1>Список задач:</h1>}
 
         <TodoList
           todos={filtredTodos}

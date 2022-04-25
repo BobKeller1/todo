@@ -16,7 +16,7 @@ const DeleteTodoModal: FC<IModal> = ({isModalOpen, modalMessage}) => {
     setModalClose,
     addItemToTrashBasket,
     deleteFromBasket,
-    setIsInBasket} = TodosSlice.actions
+    } = TodosSlice.actions
   const {deletingTodo} = useAppSelector((state) => state.TodosReducer)
   const deletingTodoCopy = {...deletingTodo, isInBasket: true}
 
