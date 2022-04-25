@@ -27,10 +27,14 @@ const CreateTodoPage = () => {
     id,
     title: title.value,
     description: description.value,
-    expDate: new Date(expDate.value || Date.now()).toLocaleString().split(',')[0],
-    createDate:new Date(Date.now()).toLocaleString().split(',')[0],
+    expDate: expDate.value || Date.now(),
+    createDate: Date.now().toString(),
     isCompleted: false
   }
+
+  const test = new Date(expDate.value).toLocaleString('ru-RU', {  day: "numeric", month: 'short', year: "numeric" })
+
+  console.log(test)
 
   const resetFields = () => {
     title.resetField()

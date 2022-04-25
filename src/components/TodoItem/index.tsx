@@ -25,13 +25,13 @@ const TodoItem: FC<ITodoItemElement> = ({todo, openModalToDelete}) => {
     dispatch(setTodoCompleted(index))
   }
 
-
-
-
-
   return (
     <WrapperTodo>
-      <input style={{width: "30px"}} type={"checkbox"} checked={isCompleted} onChange={() => setCompleted(todo)}/>
+      <input
+        style={{width: "30px"}}
+        type={"checkbox"}
+        checked={isCompleted}
+        onChange={() => setCompleted(todo)}/>
       <TodoItemWrapper className={isCompleted ?"completed": ""}>
         <div style={{width: "100%"}}>
           <div style={{display: "flex", justifyContent: "space-between", minHeight: "29px"}}>
@@ -41,14 +41,23 @@ const TodoItem: FC<ITodoItemElement> = ({todo, openModalToDelete}) => {
                 dispatch(setEditingTodo(todo))
                 navigate(`/${id}/edit`)
               }}><SvgIcon id={"icons-edit"}  /></button>
-              <button style={{border: 0, backgroundColor: "white"}} onClick={() => openModalToDelete(id)}><SvgIcon id={"icons-trash"} /></button>
+              <button
+                style={{border: 0, backgroundColor: "white"}}
+                onClick={() => openModalToDelete(id)}><SvgIcon
+                id={"icons-trash"} /></button>
             </div> }
           </div>
           <TodoDescription>{description}</TodoDescription>
           <div>
             <TodoDate>
-              <span> Дата создания: {createDate}</span>
-              <span> Дата окончания: {expDate}</span> </TodoDate>
+              <span> Дата создания: {new Date(+createDate).toLocaleString('ru-RU',
+                {  day: "numeric",
+                  month: 'short',
+                  year: "numeric" })}</span>
+              <span> Дата окончания: {new Date(expDate || Date.now()).toLocaleString('ru-RU',
+                {  day: "numeric",
+                  month: 'short',
+                  year: "numeric" })}</span> </TodoDate>
           </div>
         </div>
       </TodoItemWrapper>

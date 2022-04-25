@@ -52,4 +52,5 @@ export const TodoDate = styled(TodoText)`
   left: 8px;
   display: flex;
   justify-content: space-between;
+  gap: 15px;
 `

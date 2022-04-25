@@ -46,12 +46,24 @@ const EditTodoPage = () => {
         <Button variant="outline-primary" onClick={() => navigate("/")}>Назад</Button>
       </ButtonBackWrapper>
       <Label>Заголовок задачи</Label>
-      <InputTitle type={"text"} placeholder={"Введите заголовок задачи"} value={title.value} onChange={(e) => title.onChange(e)}/>
+      <InputTitle type={"text"}
+                  placeholder={"Введите заголовок задачи"}
+                  value={title.value}
+                  onChange={(e) => title.onChange(e)}/>
       <Label>Описание задачи</Label>
-      <InputDescription  placeholder={"Введите описание задачи"} value={description.value} onChange={(e) => description.onChange(e)}/>
+      <InputDescription
+        placeholder={"Введите описание задачи"}
+        value={description.value}
+        onChange={(e) => description.onChange(e)}/>
       <Label>Дата окончания задачи</Label>
-      <InputTitle type={"date"} value={expDate.value} onChange={(e) => expDate.onChange(e)}/>
-      <Button variant="success" onClick={() => navigate("/")}>Обновить задачу</Button>
+      <InputTitle
+        type={"date"}
+        value={expDate.value}
+        onChange={(e) => expDate.onChange(e)}/>
+      <Button variant="success" onClick={() => {
+        update(editedTodo)
+        navigate("/")
+      }}>Обновить задачу</Button>
     </CreateTodoWrapper>
   );
 };
